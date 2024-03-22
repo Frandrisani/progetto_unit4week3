@@ -1,23 +1,21 @@
 package FrancescoAndrisani.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "catalogo")
 public abstract class Catalogo {
     // attributi
     @Id
-    protected long isbn;
+    protected String isbn;
     protected String titolo;
     protected int annoDiPubblicazione;
     protected int numeroPagine;
 
     // costruttore
-    public Catalogo(long isbn, String titolo, int annoDiPubblicazione, int numeroPagine) {
+    public Catalogo(String isbn, String titolo, int annoDiPubblicazione, int numeroPagine) {
         this.isbn = isbn;
         this.titolo = titolo;
         this.annoDiPubblicazione = annoDiPubblicazione;
@@ -28,11 +26,11 @@ public abstract class Catalogo {
 
     // setter e getter
 
-    public long getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(long isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 

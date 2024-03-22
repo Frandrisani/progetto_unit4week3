@@ -1,4 +1,4 @@
 package FrancescoAndrisani.dao;
 
-public class MagazineDAO {
+public class UtenteDAO {
 }

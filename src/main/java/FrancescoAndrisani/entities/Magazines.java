@@ -1,19 +1,15 @@
 package FrancescoAndrisani.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "catalogo")
 public class Magazines extends Catalogo {
     // attributi
     @Enumerated(EnumType.STRING)
     private Periodicita periodicita;
 
     // costruttore
-    public Magazines(long isbn, String titolo, int annoDiPubblicazione, int numeroPagine, Periodicita periodicita){
+    public Magazines(String isbn, String titolo, int annoDiPubblicazione, int numeroPagine, Periodicita periodicita){
         super(isbn, titolo, annoDiPubblicazione, numeroPagine);
         this.periodicita = periodicita;
     }
