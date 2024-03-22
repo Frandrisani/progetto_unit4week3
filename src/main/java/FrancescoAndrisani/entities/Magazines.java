@@ -13,7 +13,8 @@ public class Magazines extends Catalogo {
         super(isbn, titolo, annoDiPubblicazione, numeroPagine);
         this.periodicita = periodicita;
     }
-
+public Magazines() {
+}
     // getter e setter
 
     public Periodicita getPeriodicita() {

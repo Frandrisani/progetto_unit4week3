@@ -52,4 +52,17 @@ public class PrestitoDAO {
         TypedQuery<Prestito> query = em.createQuery("SELECT p FROM Prestito p", Prestito.class);
         return query.getResultList();
     }
+
+    // Ricerca degli elementi attualmente in prestito dato un numero di tessera utente
+    public List<Catalogo> getElementiInPrestitoPerNumeroTessera(int numeroTessera) {
+        TypedQuery<Catalogo> list = em.createQuery("SELECT p.oggetto FROM Prestito p WHERE p.utente.numeroTessera = :numeroTessera AND p.dataRestituzioneEffettiva IS null", Catalogo.class);
+        list.setParameter("numeroTessera", numeroTessera);
+        return list.getResultList();
+    }
+
+    // Ricerca di tutti i prestiti scaduti e non ancora restituiti
+    public List<Prestito> getPrestitiScadutiNonRestituiti() {
+        TypedQuery<Prestito> list = em.createQuery("SELECT p FROM Prestito p WHERE p.dataRestituzionePrevista < CURRENT_DATE AND p.dataRestituzioneEffettiva IS NULL", Prestito.class);
+        return list.getResultList();
+    }
 }

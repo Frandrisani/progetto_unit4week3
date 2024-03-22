@@ -27,7 +27,7 @@ public class Application {
         Random rndm = new Random();
 
 
-        for (int i = 0; i < 10; i++) {
+        /*for (int i = 0; i < 10; i++) {
             int num = rndm.nextInt(2);
             if (num == 0) {
                 Catalogo book = new Book(faker.code().isbn10(), faker.book().title(), rndm.nextInt(2019, 2023), rndm.nextInt(100, 1000), faker.book().author(), faker.book().genre() );
@@ -51,27 +51,27 @@ public class Application {
             Catalogo elemento = catalogo.get(i);
             Prestito prestito = new Prestito(utente, elemento, LocalDate.now(), LocalDate.now().plusDays(30));
             prestitoDAO.save(prestito);
-        }
+        }*/
 
 
-       /* // Esempio di ricerca per anno di pubblicazione
+          /* // Richiamiamo la query per ottenere tutti gli oggetti di catalogo sottofoma di lista in un certo anno passato come parametro
         List<Catalogo> catalogoAnnoPubblicazione = catalogoDAO.getCatalogoPerAnnoPubblicazione(2020);
-        System.out.println("Catalogo per anno di pubblicazione: " + catalogoAnnoPubblicazione);
+        System.out.println("Catalogo per anno di pubblicazione: " + catalogoAnnoPubblicazione);*/
 
-        // Esempio di ricerca per autore
-        List<Book> libriPerAutore = catalogoDAO.getLibriPerAutore("John Doe");
-        System.out.println("Libri per autore: " + libriPerAutore);
+        /*// Richiamiamo la query per ottenere tutti gli oggetti di catalogo scritti da un autore che passiamo come parametro
+     List<Book> libriPerAutore = catalogoDAO.getLibriPerAutore("Ettore Orlando");
+        System.out.println("Libri per autore: " + libriPerAutore);*/
 
-        // Esempio di ricerca per titolo
-        List<Catalogo> catalogoPerTitolo = catalogoDAO.getCatalogoPerTitolo("Java");
-        System.out.println("Catalogo per titolo: " + catalogoPerTitolo);
+       /* // Richiamiamo la query per ottenere tutti gli oggetti di catalogo che hanno un titolo che passiamo come parametro. Possiamo passare pure parte di titolo
+        List<Catalogo> catalogoPerTitolo = catalogoDAO.getCatalogoPerTitolo("Behold the Man");
+        System.out.println("Catalogo per titolo: " + catalogoPerTitolo);*/
 
-        // Esempio di ricerca degli elementi attualmente in prestito dato un numero di tessera utente
-        List<Catalogo> elementiInPrestito = catalogoDAO.getElementiInPrestitoPerNumeroTessera("1234567890");
-        System.out.println("Elementi in prestito: " + elementiInPrestito);
+       /* //Richiamando questa query invece, passando per parametro il numero di una tessera, possiamo vedere gli oggetti in prestito ancora non restituiti di quell'utente
+        List<Catalogo> elementiInPrestito = prestitoDAO.getElementiInPrestitoPerNumeroTessera(1);
+        System.out.println("Elementi in prestito: " + elementiInPrestito);*/
 
-        // Esempio di ricerca di tutti i prestiti scaduti e non ancora restituiti
-        List<Prestito> prestitiScaduti = catalogoDAO.getPrestitiScadutiNonRestituiti();
+       /* // Richiamiamo la query per ottenere tutti gli utenti che hanno preso in prestito un oggetto del catalogo e non l'hanno ancora restituito pur essendo scaduto il termine ultimo
+        List<Prestito> prestitiScaduti = prestitoDAO.getPrestitiScadutiNonRestituiti();
         System.out.println("Prestiti scaduti: " + prestitiScaduti);*/
 
         em.close();
