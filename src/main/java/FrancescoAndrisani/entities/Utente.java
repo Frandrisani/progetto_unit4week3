@@ -1,33 +1,36 @@
 package FrancescoAndrisani.entities;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name ="utente")
 public class Utente {
-    // attributi
+
     @Id
-    @GeneratedValue
-    private Long numeroDiTessera;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String cognome;
     private LocalDate dataDiNascita;
+    private String numeroTessera;
 
-    // costruttore
-    public Utente( String nome, String cognome, LocalDate dataDiNascita) {
+    @OneToMany(mappedBy = "utente")
+    private Set<Prestito> prestiti = new HashSet<>();
+
+    public Utente() {}
+
+    public Utente(String nome, String cognome, LocalDate dataDiNascita, String numeroTessera) {
         this.nome = nome;
         this.cognome = cognome;
         this.dataDiNascita = dataDiNascita;
+        this.numeroTessera = numeroTessera;
     }
-    public Utente() {}
 
-    // getter e setter
+    // Getter e setter
 
-    public Long getNumeroDiTessera() {
-        return numeroDiTessera;
+    public Long getId() {
+        return id;
     }
 
     public String getNome() {
@@ -54,16 +57,32 @@ public class Utente {
         this.dataDiNascita = dataDiNascita;
     }
 
-    // toString
+    public String getNumeroTessera() {
+        return numeroTessera;
+    }
 
+    public void setNumeroTessera(String numeroTessera) {
+        this.numeroTessera = numeroTessera;
+    }
+
+    public Set<Prestito> getPrestiti() {
+        return prestiti;
+    }
+
+    public void setPrestiti(Set<Prestito> prestiti) {
+        this.prestiti = prestiti;
+    }
+
+    // toString()
 
     @Override
     public String toString() {
         return "Utente{" +
-                "numeroDiTessera=" + numeroDiTessera +
+                "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
                 ", dataDiNascita=" + dataDiNascita +
+                ", numeroTessera='" + numeroTessera + '\'' +
                 '}';
     }
 }

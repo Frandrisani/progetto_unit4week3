@@ -11,22 +11,25 @@ public class Prestito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @ManyToOne
+    @JoinColumn(name = "utente_id")
     private Utente utente;
+
+    @ManyToOne
+    @JoinColumn(name = "elemento_id")
     private Catalogo oggetto;
     private LocalDate inizioPrestito;
     private LocalDate dataRestituzionePrevista;
     private LocalDate dataRestituzioneEffettiva;
 
     // costruttore
-    public Prestito(Utente utente, Catalogo oggetto, LocalDate inizioPrestito){
+    public Prestito() {}
+
+    public Prestito(Utente utente, Catalogo elemento, LocalDate inizioPrestito, LocalDate dataRestituzionePrevista) {
         this.utente = utente;
-        this.oggetto = oggetto;
+        this.oggetto = elemento;
         this.inizioPrestito = inizioPrestito;
-    }
-    public Prestito() {
-    }
-    public Prestito(LocalDate dataRestituzioneEffettiva){
-        this.dataRestituzioneEffettiva = dataRestituzioneEffettiva;
+        this.dataRestituzionePrevista = dataRestituzionePrevista;
     }
 
     // getter e setter
@@ -59,11 +62,11 @@ public class Prestito {
         return dataRestituzionePrevista;
     }
 
-    public void setDataRestituzionePrevista(LocalDate dataRestituzionePrevista) {
-        //Con una ricerca web scopro che il metodo plusDays() è un metodo di LocalDate che permette di aggiungere un numero di giorni al giorno
-        //link documentazione:https://www.geeksforgeeks.org/localdate-plusdays-method-in-java-with-examples/
-        this.dataRestituzionePrevista = this.inizioPrestito.plusDays(30);
-    }
+public void setDataRestituzionePrevista(LocalDate dataRestituzionePrevista) {
+        //Da ricerca su come gestire la data di restituzione effettiva ho scoperto plusDays()
+    //https://www.geeksforgeeks.org/localdate-plusdays-method-in-java-with-examples/
+    this.dataRestituzionePrevista = this.inizioPrestito.plusDays(30);
+}
 
     public LocalDate getDataRestituzioneEffettiva() {
         return dataRestituzioneEffettiva;
@@ -84,3 +87,8 @@ public class Prestito {
                 '}';
     }
 }
+
+
+
+
+

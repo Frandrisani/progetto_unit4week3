@@ -52,35 +52,42 @@ public class CatalogoDAO {
         }
     }
 
-    // Metodo 1: Ricerca per anno pubblicazione
+    // Facciamoci restituire una lista di tutti gli oggetti di tipo Catalogo
+    public List<Catalogo> findAll() {
+        TypedQuery<Catalogo> query = em.createQuery("SELECT c FROM Catalogo c", Catalogo.class);
+        return query.getResultList();
+    }
+
+    // Ricedca per anno di pubblicazione
     public List<Catalogo> getCatalogoPerAnnoPubblicazione(int annoPubblicazione) {
         TypedQuery<Catalogo> list = em.createQuery("SELECT c FROM Catalogo c WHERE c.annoDiPubblicazione = :anno", Catalogo.class);
         list.setParameter("anno", annoPubblicazione);
         return list.getResultList();
     }
 
-    // Metodo 2: Ricerca per autore
+    // Ricerca per autore (solo per Book in quanto solo loro hanno qeull'attributo)
     public List<Book> getLibriPerAutore(String autore) {
         TypedQuery<Book> list = em.createQuery("SELECT b FROM Book b WHERE b.autore = :autore", Book.class);
         list.setParameter("autore", autore);
         return list.getResultList();
     }
 
-    // Metodo 3: Ricerca per titolo o parte di esso
+    // Ricerca per titolo o parte di esso
     public List<Catalogo> getCatalogoPerTitolo(String titolo) {
         TypedQuery<Catalogo> list = em.createQuery("SELECT c FROM Catalogo c WHERE LOWER(c.titolo) LIKE :titolo", Catalogo.class);
+        //toLowerCase() serve per non fare distinzione tra maiuscole e minuscole eventuali
         list.setParameter("titolo", "%" + titolo.toLowerCase() + "%");
         return list.getResultList();
     }
 
-    // Metodo 4: Ricerca degli elementi attualmente in prestito dato un numero di tessera utente
+    // Ricerca degli elementi attualmente in prestito dato un numero di tessera utente
     public List<Catalogo> getElementiInPrestitoPerNumeroTessera(String numeroTessera) {
         TypedQuery<Catalogo> list = em.createQuery("SELECT p.elemento FROM Prestito p WHERE p.utente.numeroTessera = :numeroTessera AND p.dataRestituzione IS NULL", Catalogo.class);
         list.setParameter("numeroTessera", numeroTessera);
         return list.getResultList();
     }
 
-    // Metodo 5: Ricerca di tutti i prestiti scaduti e non ancora restituiti
+    // Ricerca di tutti i prestiti scaduti e non ancora restituiti
     public List<Prestito> getPrestitiScadutiNonRestituiti() {
         TypedQuery<Prestito> list = em.createQuery("SELECT p FROM Prestito p WHERE p.dataScadenza < CURRENT_DATE AND p.dataRestituzione IS NULL", Prestito.class);
         return list.getResultList();
